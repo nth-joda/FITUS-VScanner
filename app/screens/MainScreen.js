@@ -2,7 +2,6 @@ import {
   View,
   Text,
   StyleSheet,
-  SafeAreaView,
   Platform,
   StatusBar,
   Image,
@@ -10,6 +9,7 @@ import {
   Dimensions,
   TouchableOpacity,
 } from "react-native";
+import SafeAreaView from "react-native-safe-area-view";
 import React from "react";
 import { AntDesign } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
@@ -18,10 +18,10 @@ import { Card } from "react-native-shadow-cards";
 import VMAMA_LOGO from "../assets/VMAMA_Text_only.png";
 
 const dataCta = [
-  { key: "Chụp hóa đơn", icon: "camerao" },
-  { key: "Ảnh có sẵn", icon: "photo" },
-  { key: "Lịch sử HĐ", icon: "history" },
-  { key: "Hồ sơ cá nhân", icon: "profile" },
+  { key: "Chụp hóa đơn", icon: "camerao", navTo: "Camera" },
+  { key: "Ảnh có sẵn", icon: "photo", navTo: "Login" },
+  { key: "Lịch sử HĐ", icon: "history", navTo: "Login" },
+  { key: "Hồ sơ cá nhân", icon: "profile", navTo: "Login" },
 ];
 
 const renderIcon = (name) => {
@@ -104,10 +104,10 @@ const renderIcon = (name) => {
 
 const numColumns = 2;
 const WIDTH = Dimensions.get("window").width;
-export default function MainScreen() {
+export default function MainScreen({ navigation }) {
   const _renderItem = ({ item, index }) => {
     return (
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate(item.navTo)}>
         <Card style={{ padding: 10, margin: 10, width: 150, height: 150 }}>
           {renderIcon(item.icon)}
           <Text style={styles.itemText}>{item.key}</Text>
