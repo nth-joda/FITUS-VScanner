@@ -9,18 +9,19 @@ import {
 import React, { useState, useEffect, useRef } from "react";
 import { Octicons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
-import { SafeAreaView } from "react-native";
+import SafeAreaView from "react-native-safe-area-view";
 import { Entypo } from "@expo/vector-icons";
 import { Camera, CameraType } from "expo-camera";
 // import RNMlKit from "react-native-firebase-mlkit";
 
-export default function TakePhotoScreen() {
+export default function TakePhotoScreen({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null);
   const [cameraRef, setCameraRef] = useState(null);
   const __takePicture = async () => {
     if (cameraRef) {
       let photo = await cameraRef.takePictureAsync();
       console.log("photo", photo);
+      navigation.navigate("Preview", photo);
     }
   };
   const [type, setType] = useState(CameraType.back);
@@ -168,11 +169,15 @@ export default function TakePhotoScreen() {
       </View>
       <View style={styles.CameraActionArea}>
         <View style={styles.ButtonAction}>
-          <Octicons name="home" size={32} color="#025395" />
+          <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+            <Octicons name="home" size={32} color="#025395" />
+          </TouchableOpacity>
         </View>
 
         <View style={styles.ButtonAction}>
-          <FontAwesome name="file-photo-o" size={32} color="#025395" />
+          <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+            <FontAwesome name="file-photo-o" size={32} color="#025395" />
+          </TouchableOpacity>
         </View>
         <View style={[styles.card, styles.shadowProp]}>
           <TouchableOpacity onPress={__takePicture}>
