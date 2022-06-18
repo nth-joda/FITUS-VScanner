@@ -119,7 +119,9 @@ export default function MainScreen({ navigation }) {
     <SafeAreaView style={styles.safeContainer}>
       <View style={styles.blueContainer}>
         <View style={styles.headerContainer}>
-          <Image style={[styles.logoImg]} source={VMAMA_LOGO} />
+          <View style={styles.logoContainer}>
+            <Image style={[styles.logoImg]} source={VMAMA_LOGO} />
+          </View>
         </View>
         <View style={styles.emptyContainer}>
           <Text style={styles.greetingText}>Xin chào, Tèo!</Text>
@@ -147,12 +149,13 @@ const styles = StyleSheet.create({
   safeContainer: {
     flex: 1,
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+    backgroundColor: "white",
   },
   blueContainer: {
     flex: 6,
     backgroundColor: "#70A0C2",
-    borderBottomLeftRadius: 40,
-    borderBottomRightRadius: 40,
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
   },
   whiteContainer: {
     flex: 4,
@@ -168,10 +171,14 @@ const styles = StyleSheet.create({
   logoContainer: {
     margin: "auto",
     alignItems: "center",
+    width: "100%",
+    height: "60%",
   },
   logoImg: {
-    width: "50%",
-    height: "70%",
+    width: "100%",
+    height: "100%",
+    flex: 1,
+    resizeMode: "contain",
   },
   emptyContainer: {
     flex: 85,

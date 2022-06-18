@@ -13,7 +13,6 @@ export default function PreviewScreen({ route, navigation }) {
             style={{
               flex: 1,
               resizeMode: "center",
-              aspectRatio: 1,
             }}
             source={{ uri: photo.uri }}
           />
@@ -23,14 +22,22 @@ export default function PreviewScreen({ route, navigation }) {
       </View>
       <View style={styles.photoCta}>
         <View style={styles.cta}>
-          <TouchableOpacity onPress={() => navigation.navigate("Camera")}>
-            <Text style={{ textAlign: "center" }}>Chụp lại</Text>
-          </TouchableOpacity>
+          <View style={styles.button}>
+            <TouchableOpacity onPress={() => navigation.navigate("Camera")}>
+              <Text style={{ textAlign: "center", color: "white" }}>
+                Chụp lại
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
         <View style={styles.cta}>
-          <TouchableOpacity onPress={() => alert("on developing")}>
-            <Text style={{ textAlign: "center" }}>Trích xuất thông tin</Text>
-          </TouchableOpacity>
+          <View style={styles.button}>
+            <TouchableOpacity onPress={() => alert("on developing")}>
+              <Text style={{ textAlign: "center", color: "white" }}>
+                Trích xuất thông tin
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </View>
@@ -43,7 +50,7 @@ const styles = StyleSheet.create({
   },
   photo: {
     flex: 9,
-    backgroundColor: "#ccc",
+    backgroundColor: "black",
   },
   photoCta: {
     flex: 1,
@@ -52,5 +59,15 @@ const styles = StyleSheet.create({
   cta: {
     flex: 1,
     justifyContent: "center",
+    alignItems: "center",
+  },
+  button: {
+    backgroundColor: "#025395",
+    width: 120,
+    padding: 10,
+    borderRadius: 10,
+    minHeight: 70,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

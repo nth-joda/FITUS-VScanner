@@ -12,9 +12,11 @@ import { FontAwesome } from "@expo/vector-icons";
 import SafeAreaView from "react-native-safe-area-view";
 import { Entypo } from "@expo/vector-icons";
 import { Camera, CameraType } from "expo-camera";
+import { useIsFocused } from "@react-navigation/native";
 // import RNMlKit from "react-native-firebase-mlkit";
 
 export default function TakePhotoScreen({ navigation }) {
+  const isFocused = useIsFocused();
   const [hasPermission, setHasPermission] = useState(null);
   const [cameraRef, setCameraRef] = useState(null);
   const __takePicture = async () => {
@@ -35,7 +37,7 @@ export default function TakePhotoScreen({ navigation }) {
     return <View />;
   }
   if (hasPermission === false) {
-    return <Text>No access to camera</Text>;
+    return <Text>Hãy cấp quyền truy cập camera</Text>;
   }
   const WIDTH = Dimensions.get("window").width;
   const styles = StyleSheet.create({
@@ -124,22 +126,23 @@ export default function TakePhotoScreen({ navigation }) {
           <View></View>
         </View>
         <View style={styles.CameraCenter}>
-          <Camera
-            style={styles.camera}
-            type={type}
-            ref={(ref) => {
-              setCameraRef(ref);
-            }}
-            autoFocus="on"
-          >
-            <View
-              style={{
-                flex: 1,
-                backgroundColor: "transparent",
-                justifyContent: "flex-end",
+          {isFocused && (
+            <Camera
+              style={styles.camera}
+              type={type}
+              ref={(ref) => {
+                setCameraRef(ref);
               }}
+              autoFocus="on"
             >
-              {/* <TouchableOpacity
+              <View
+                style={{
+                  flex: 1,
+                  backgroundColor: "transparent",
+                  justifyContent: "flex-end",
+                }}
+              >
+                {/* <TouchableOpacity
                 style={{
                   flex: 0.1,
                   alignSelf: "flex-end",
@@ -158,8 +161,9 @@ export default function TakePhotoScreen({ navigation }) {
                   Flip
                 </Text>
               </TouchableOpacity> */}
-            </View>
-          </Camera>
+              </View>
+            </Camera>
+          )}
         </View>
         <View style={styles.CameraBottom}>
           <Text style={styles.GuideText}>
